@@ -23,24 +23,24 @@ class Contributors extends React.Component {
   };
 
   componentDidMount() {
-    this.fetchMoreContributors();
+    this.fetchMoreContributors({ perPage: 10 });
   }
 
-  fetchMoreContributors = () => {
+  fetchMoreContributors = ({ perPage = 5 } = {}) => {
     this.setState(
       () => ({ isLoading: true, hasError: false }),
       () => {
         fetch(
           `https://api.github.com/repos/${this.props.match.params.user}/${
             this.props.match.params.repo
-          }/contributors?per_page=10&page=${this.state.page}`
+          }/contributors?per_page=${perPage}&page=${this.state.page}`
         )
           .then(response => response.json())
           .then(contributors => {
             this.setState(prevState => ({
               contributors: [...prevState.contributors, ...contributors],
               isLoading: false,
-              page: prevState.page + 1,
+              page: prevState.page + perPage / 5,
               hasMore: !!contributors.length
             }));
           })
