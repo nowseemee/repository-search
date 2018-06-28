@@ -10,42 +10,45 @@ import WarningIcon from "@material-ui/icons/Warning";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
-const styles = theme => ({
+const styles = () => ({
   contributorsLink: {
     textAlign: "right",
     marginTop: "10px"
+  },
+  description: {
+    height: "22px",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden"
   }
 });
 const RepositoryCard = props => (
-  <div>
-    <Card>
-      <CardHeader
-        title={
-          <a rel="noopener noreferrer" target="_blank" href={props.link}>
-            {props.fullName}
-          </a>
-        }
-        subheader={props.language}
-      />
-      <CardContent>
-        <Typography component="p">{props.description}</Typography>
-        <Link to={`/contributors/${props.fullName}`}>
-          <Typography
-            component="div"
-            className={props.classes.contributorsLink}
-          >
-            Top contributors
-          </Typography>
-        </Link>
-      </CardContent>
-      <CardActions>
-        <StarIcon />
-        <Typography component="span"> {props.starsCount}</Typography>
-        <WarningIcon />
-        <Typography component="span"> {props.issuesCount}</Typography>
-      </CardActions>
-    </Card>
-  </div>
+  <Card>
+    <CardHeader
+      title={
+        <a rel="noopener noreferrer" target="_blank" href={props.link}>
+          {props.fullName}
+        </a>
+      }
+      subheader={props.language}
+    />
+    <CardContent>
+      <Typography className={props.classes.description} component="p">
+        {props.description}
+      </Typography>
+      <Link to={`/contributors/${props.fullName}`}>
+        <Typography className={props.classes.contributorsLink}>
+          Top contributors
+        </Typography>
+      </Link>
+    </CardContent>
+    <CardActions>
+      <StarIcon />
+      <Typography> {props.starsCount}</Typography>
+      <WarningIcon />
+      <Typography> {props.issuesCount}</Typography>
+    </CardActions>
+  </Card>
 );
 
 RepositoryCard.propTypes = {

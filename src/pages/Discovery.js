@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Typography from "@material-ui/core/Typography";
 import Search from "../components/Search";
 import RepositoryList from "../components/RepositoryList";
 
@@ -64,10 +65,14 @@ class Discovery extends React.Component {
         />
 
         {this.state.hasError && (
-          <h2>Something went wrong, please try again...</h2>
+          <Typography variant="title">
+            Something went wrong, please try again...
+          </Typography>
         )}
 
-        {this.state.isLoading && <h2>Loading...</h2>}
+        {this.state.isLoading && (
+          <Typography variant="title">Loading...</Typography>
+        )}
 
         <RepositoryList repositories={this.state.repositories} />
       </div>

@@ -7,9 +7,8 @@ import AppBar from "./components/AppBar";
 
 ReactDOM.render(
   <BrowserRouter>
-    <div>
+    <div style={{ margin: "12px" }}>
       <AppBar />
-
       <Route exact path="/" component={Discovery} />
       <Route path="/search/:q?" component={Discovery} />
       <Route path="/contributors/:user/:repo" component={Contributors} />
