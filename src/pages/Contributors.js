@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import ContributorList from "../components/ContributorList";
+import Typography from "@material-ui/core/Typography";
 
 class Contributors extends React.Component {
   static propTypes = {
@@ -52,23 +55,35 @@ class Contributors extends React.Component {
     );
   };
 
+  getPageTitle = () =>
+    `Top ${this.state.contributors.length || 10} contributors for ${
+      this.props.match.params.user
+    }/${this.props.match.params.repo}`;
+
   render() {
     return (
       <div>
+        <Typography
+          style={{ textAlign: "center", marginTop: "24px" }}
+          variant="title"
+        >
+          {this.getPageTitle()}
+        </Typography>
+
         {this.state.hasError && (
-          <h2>Something went wrong, please try again...</h2>
+          <Typography variant="title">
+            Something went wrong, please try again...
+          </Typography>
         )}
 
-        {this.state.contributors.map(contributor => contributor.login)}
-
-        <button
+        <ContributorList contributors={this.state.contributors} />
+        <Button
+          style={{ width: "100%", margin: "24px 0" }}
           disabled={this.state.isLoading || !this.state.hasMore}
           onClick={() => this.fetchMoreContributors()}
         >
-          more
-        </button>
-
-        {this.state.isLoading && <h2>Loading...</h2>}
+          {this.state.isLoading ? "Loading..." : "Load More"}
+        </Button>
       </div>
     );
   }
