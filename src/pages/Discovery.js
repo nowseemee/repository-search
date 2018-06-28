@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Search from "../components/Search";
-import AppBar from "../components/AppBar";
 import RepositoryList from "../components/RepositoryList";
 
 class Discovery extends React.Component {
@@ -55,7 +54,6 @@ class Discovery extends React.Component {
   render() {
     return (
       <div>
-        <AppBar />
         <Search
           q={this.props.match.params.q}
           onSubmit={this.props.history.push}
