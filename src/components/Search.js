@@ -14,9 +14,8 @@ class Search extends React.Component {
       <div
         style={{
           display: "flex",
-          width: "100%",
           justifyContent: "center",
-          marginTop: "10px"
+          margin: "10px"
         }}
       >
         <TextField
