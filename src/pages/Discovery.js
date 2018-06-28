@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Search from "../components/Search";
 import AppBar from "../components/AppBar";
+import RepositoryList from "../components/RepositoryList";
 
 class Discovery extends React.Component {
   static propTypes = {
@@ -14,7 +15,7 @@ class Discovery extends React.Component {
   };
 
   state = {
-    items: [],
+    repositories: [],
     hasError: false,
     isLoading: false
   };
@@ -30,16 +31,24 @@ class Discovery extends React.Component {
 
   fetchSearchToState = q => {
     this.setState(
-      () => ({ isLoading: true }),
+      () => ({ isLoading: true, repositories: [] }),
       () =>
         fetch(`https://api.github.com/search/repositories?per_page=6&q=${q}`)
           .then(response => response.json())
-          .then(({ items }) =>
-            this.setState(() => ({ items, hasError: false, isLoading: false }))
-          )
-          .catch(() =>
-            this.setState(() => ({ hasError: true, isLoading: false }))
-          )
+          .then(({ items: repositories }) => {
+            this.setState(() => ({
+              repositories,
+              hasError: false,
+              isLoading: false
+            }));
+          })
+          .catch(() => {
+            this.setState(() => ({
+              hasError: true,
+              isLoading: false,
+              repositories: []
+            }));
+          })
     );
   };
 
@@ -58,9 +67,7 @@ class Discovery extends React.Component {
 
         {this.state.isLoading && <h2>Loading...</h2>}
 
-        {this.state.items.map(item => {
-          return item.full_name;
-        })}
+        <RepositoryList repositories={this.state.repositories} />
       </div>
     );
   }
