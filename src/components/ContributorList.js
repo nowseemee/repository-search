@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import ContributorCard from "./ContributorCard";
 
 const ContributorList = props => (
-  <Grid style={{ marginTop: "10px" }} container spacing={24}>
+  <Grid style={{ marginTop: "24px" }} container spacing={24}>
     {props.contributors.map(contributor => (
       <Grid item key={contributor.id} xs={12}>
         <ContributorCard
