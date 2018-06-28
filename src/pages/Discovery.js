@@ -20,12 +20,15 @@ class Discovery extends React.Component {
   };
 
   componentDidMount() {
-    this.fetchSearchToState(this.props.match.params.q);
+    this.props.match.params.q &&
+      this.fetchSearchToState(this.props.match.params.q);
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.match.params.q !== this.props.match.params.q &&
-      this.fetchSearchToState(nextProps.match.params.q);
+    nextProps.match.params.q
+      ? nextProps.match.params.q !== this.props.match.params.q &&
+        this.fetchSearchToState(nextProps.match.params.q)
+      : this.setState({ repositories: [] });
   }
 
   fetchSearchToState = q => {
@@ -51,12 +54,14 @@ class Discovery extends React.Component {
     );
   };
 
+  handleSubmitSearch = q => this.props.history.push(`/search/${q}`);
+
   render() {
     return (
       <div>
         <Search
           q={this.props.match.params.q}
-          onSubmit={this.props.history.push}
+          onSubmit={this.handleSubmitSearch}
         />
 
         {this.state.hasError && (

@@ -9,9 +9,10 @@ import AppBar from "./components/AppBar";
 ReactDOM.render(
   <BrowserRouter>
     <div>
-      <Route path="/:q?" component={Discovery} />
-      <Route path="/contributors" component={Contributors} />
       <AppBar />
+
+      <Route exact path="/" component={Discovery} />
+      <Route path="/search/:q?" component={Discovery} />
     </div>
   </BrowserRouter>,
   document.getElementById("root")
