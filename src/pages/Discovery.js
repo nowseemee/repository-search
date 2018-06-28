@@ -33,14 +33,13 @@ class Discovery extends React.Component {
 
   fetchSearchToState = q => {
     this.setState(
-      () => ({ isLoading: true, repositories: [] }),
+      () => ({ isLoading: true, repositories: [], hasError: false }),
       () =>
         fetch(`https://api.github.com/search/repositories?per_page=6&q=${q}`)
           .then(response => response.json())
           .then(({ items: repositories }) => {
             this.setState(() => ({
               repositories,
-              hasError: false,
               isLoading: false
             }));
           })
